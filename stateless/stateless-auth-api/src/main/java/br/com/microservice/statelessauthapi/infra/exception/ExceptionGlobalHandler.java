@@ -19,4 +19,10 @@ public class ExceptionGlobalHandler {
 		ExceptionDetails details = new ExceptionDetails(HttpStatus.UNAUTHORIZED.value(), authenticationException.getMessage());
 		return new ResponseEntity<>(details, HttpStatus.UNAUTHORIZED);
 	}
+	
+	@ExceptionHandler(UserNotFoundException.class)
+	public ResponseEntity<?> handleUserNotFoundException(UserNotFoundException userNotFoundException) {
+		ExceptionDetails details = new ExceptionDetails(HttpStatus.NOT_FOUND.value(), userNotFoundException.getMessage());
+		return new ResponseEntity<>(details, HttpStatus.NOT_FOUND);
+	}
 }
