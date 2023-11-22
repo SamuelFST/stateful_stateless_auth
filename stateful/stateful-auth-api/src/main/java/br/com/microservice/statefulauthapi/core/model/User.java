@@ -1,5 +1,6 @@
 package br.com.microservice.statefulauthapi.core.model;
 
+import br.com.microservice.statefulauthapi.core.dto.RegisterRequest;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,10 +15,10 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	@Column(name = "username", nullable = false, unique = true)
 	private String username;
-	
+
 	@Column(name = "password", nullable = false)
 	private String password;
 
@@ -28,6 +29,14 @@ public class User {
 		this.id = id;
 		this.username = username;
 		this.password = password;
+	}
+
+	public static User of(RegisterRequest request) {
+		User user = new User();
+		user.setUsername(request.username());
+		user.setPassword(request.password());
+
+		return user;
 	}
 
 	public Integer getId() {
@@ -54,4 +63,3 @@ public class User {
 		this.password = password;
 	}
 }
-
